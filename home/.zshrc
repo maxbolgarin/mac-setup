@@ -12,6 +12,7 @@ plugins=(
     git
     sudo                 # Esc Esc: add sudo to the current or last command
     dirhistory           # Alt+Left/Right: back/forward through folders
+    aliases              # `als`: list all aliases, `als git` to filter
     colored-man-pages
     safe-paste
     zsh-autosuggestions  # grey suggestion from history; Right arrow accepts it

@@ -2,7 +2,9 @@
 # Reload: Cmd+Shift+,
 
 # Look
-theme = Catppuccin Mocha
+theme = Apple System Colors
+# Pure black background, like Apple Terminal (more contrast than the theme's grey)
+background = 000000
 # Font: Ghostty's built-in JetBrains Mono (includes Nerd Font icons)
 font-size = 14
 window-padding-x = 10
@@ -19,7 +21,10 @@ copy-on-select = clipboard
 window-save-state = always
 scrollback-limit = 50000000
 
+# Report the terminal as xterm-256color: every server knows that name, so remote
+# shells turn on their colors (Ubuntu's .bashrc colors the prompt only for
+# *-256color) and htop/vim work without copying Ghostty's own terminfo.
+term = xterm-256color
+
 # Shell integration (zsh is detected automatically).
-# ssh-terminfo: copies Ghostty's terminal description to servers on first SSH,
-# so htop/vim on servers don't fail with "unknown terminal type".
-shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo,path
+shell-integration-features = cursor,sudo,title,path

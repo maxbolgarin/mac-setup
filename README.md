@@ -2,7 +2,7 @@
 
 One command to set up a nice terminal on a Mac:
 
-- **Ghostty**: fast, native terminal app
+- **Ghostty**: fast, native terminal app (high-contrast dark theme; reports `xterm-256color`, so prompts on SSH servers keep their colors)
 - **zsh + oh-my-zsh + zsh-autosuggestions**: grey suggestions from your history
 - **Starship** prompt: full path, rich git status, command time and exit code; old prompts shrink to `❯ cmd`
 - **gitb** ([gitbasher](https://github.com/maxbolgarin/gitbasher)): short git commands, alias `g`
