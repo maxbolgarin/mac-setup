@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Set up a Mac terminal: Ghostty, zsh + oh-my-zsh + zsh-autosuggestions, the Starship
-# prompt, and fzf / zoxide / bat / eza / fd.
+# prompt, gitb, and fzf / zoxide / bat / eza / fd.
 #
 # Usage:  ./install.sh            install
 #         ./install.sh --dry-run  only print what would happen
@@ -75,12 +75,21 @@ else
   run git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions "$AS"
 fi
 
+step "gitb (gitbasher)"
+if command -v gitb >/dev/null 2>&1 || [[ -x "$HOME/.local/bin/gitb" ]]; then
+  echo "    already installed"
+else
+  # Official installer: puts gitb into ~/.local/bin (no sudo) and checks its SHA-256
+  run bash -c "curl -fsSL https://raw.githubusercontent.com/maxbolgarin/gitbasher/main/install.sh | bash"
+fi
+
 step "Config files"
-# Keep the old .zshrc's own lines: if there was a .zshrc and no .zshrc.local yet,
-# the old one becomes .zshrc.local (the new .zshrc loads it at the end).
-if [[ -f "$HOME/.zshrc" && ! -e "$HOME/.zshrc.local" ]] && ! cmp -s "$KIT/home/.zshrc" "$HOME/.zshrc"; then
-  run cp "$HOME/.zshrc" "$HOME/.zshrc.local"
-  echo "    old .zshrc kept as ~/.zshrc.local (check it, remove what you don't need)"
+# An existing ~/.zshrc is saved before it is replaced. It is not loaded again:
+# copy the lines you still want into ~/.zshrc.local (the new .zshrc loads that file).
+ZSHRC_BACKUP=""
+if [[ -f "$HOME/.zshrc" ]] && ! cmp -s "$KIT/home/.zshrc" "$HOME/.zshrc"; then
+  ZSHRC_BACKUP="$HOME/.zshrc.bak-$STAMP"
+  echo "    found an existing ~/.zshrc"
 fi
 put home/.zshrc                   "$HOME/.zshrc"
 put home/.zprofile                "$HOME/.zprofile"
@@ -89,3 +98,7 @@ put home/.config/ghostty/config   "$HOME/.config/ghostty/config"
 
 step "Done"
 echo "    Open Ghostty (Applications). The new prompt loads in every new terminal window."
+if [[ -n "$ZSHRC_BACKUP" ]]; then
+  echo "    Your old .zshrc is saved as $ZSHRC_BACKUP"
+  echo "    Copy the lines you still need (aliases, PATH, exports) into ~/.zshrc.local"
+fi

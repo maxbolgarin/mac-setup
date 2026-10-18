@@ -43,12 +43,11 @@ fi
 # zoxide: `z foo` jumps to the folder you use most that matches "foo"; `zi` picks with fzf
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
-# bat: cat with syntax colors; also the man pager
-if command -v bat >/dev/null; then
-  alias cat='bat --paging=never'
-  alias catp='bat'
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
+# bat: colored man pages (run `bat <file>` to view a file with syntax colors)
+command -v bat >/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# gitb (gitbasher): short git commands, `gitb` lists them
+command -v gitb >/dev/null && alias g='gitb'
 
 # eza: ls with colors and git status
 if command -v eza >/dev/null; then
