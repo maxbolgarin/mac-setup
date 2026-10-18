@@ -1,0 +1,79 @@
+# Starship prompt. All options: https://starship.rs/config/  ·  starship print-config
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Line 1: path, git, last command result. Line 2: ❯
+format = """
+$username$hostname$directory\
+$git_branch$git_commit$git_state$git_status$git_metrics\
+$cmd_duration$jobs$status
+$character"""
+add_newline = true
+command_timeout = 500
+
+# user@host only over SSH
+[username]
+format = "[$user]($style)@"
+style_user = "bold yellow"
+[hostname]
+ssh_only = true
+format = "[$hostname]($style) "
+style = "bold yellow"
+
+[directory]
+truncation_length = 0            # full path, never shortened
+truncate_to_repo = false
+home_symbol = "~"
+style = "bold cyan"
+read_only = " 󰌾"
+
+# ---- Git ----
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style) "
+symbol = " "
+style = "bold purple"
+
+[git_commit]
+tag_disabled = false             # detached HEAD: show the tag or short hash
+format = '[\($hash$tag\)]($style) '
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+
+[git_status]
+# = conflict  ⇡ ahead  ⇣ behind  ? untracked  ! modified  + staged  » renamed  ✘ deleted  $ stash
+format = '([\[$all_status$ahead_behind\]]($style) )'
+conflicted = "=${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+untracked = "?${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+stashed = "\\$${count}"
+style = "bold yellow"
+
+[git_metrics]
+disabled = false                 # lines added / removed in uncommitted changes
+format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
+
+# ---- Last command ----
+[cmd_duration]
+min_time = 2_000                 # only for commands slower than 2 s
+format = "[ $duration]($style) "
+style = "yellow"
+show_notifications = false
+
+[jobs]
+format = "[✦$number]($style) "
+
+[status]
+disabled = false                 # exit code of the last command, only when it failed
+format = "[✘ $status]($style) "
+style = "bold red"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"

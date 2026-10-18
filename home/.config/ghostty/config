@@ -1,0 +1,25 @@
+# Ghostty config. All keys: ghostty +show-config --default --docs
+# Reload: Cmd+Shift+,
+
+# Look
+theme = Catppuccin Mocha
+# Font: Ghostty's built-in JetBrains Mono (includes Nerd Font icons)
+font-size = 14
+window-padding-x = 10
+window-padding-y = 8
+window-padding-balance = true
+macos-titlebar-style = native
+window-width = 140
+window-height = 40
+
+# Behaviour
+macos-option-as-alt = true
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+window-save-state = always
+scrollback-limit = 50000000
+
+# Shell integration (zsh is detected automatically).
+# ssh-terminfo: copies Ghostty's terminal description to servers on first SSH,
+# so htop/vim on servers don't fail with "unknown terminal type".
+shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo,path
