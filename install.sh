@@ -103,6 +103,10 @@ step "What to install"
 echo "  Terminal"
 ask T_PKGS    "Terminal apps and tools (Ghostty, Starship, fzf, zoxide, bat, eza, fd, …)?" Y
 ask T_SHELL   "Shell setup: oh-my-zsh + this kit's ~/.zshrc and Starship prompt?" Y
+T_LOCAL=0
+if (( T_SHELL )) && [[ ! -e "$HOME/.zshrc.local" ]]; then
+  ask T_LOCAL "Also create ~/.zshrc.local from the example (aliases, ask/how helpers)?" Y
+fi
 ask T_GHOSTTY "Ghostty config (dark theme, keys, SSH colors)?" Y
 ask T_GITB    "gitb (short git commands)?" Y
 D_TOOLS=0; D_NODE=0; D_CODE=0; D_CODE_SET=0; D_CODE_EXT=0; D_CODE_OPT=0; D_DOCKER=0
@@ -176,6 +180,15 @@ if (( T_SHELL )); then
   put home/.zshrc                "$HOME/.zshrc"
   put home/.zprofile             "$HOME/.zprofile"
   put home/.config/starship.toml "$HOME/.config/starship.toml"
+  if (( T_LOCAL )); then
+    # Only when the file does not exist yet: ~/.zshrc.local is yours and never overwritten.
+    if [[ -e "$HOME/.zshrc.local" ]]; then
+      echo "    ~/.zshrc.local exists, left as it is"
+    else
+      run cp "$KIT/home/.zshrc.local.example" "$HOME/.zshrc.local"
+      echo "    wrote: $HOME/.zshrc.local (from .zshrc.local.example; edit it freely)"
+    fi
+  fi
 fi
 
 if (( T_GHOSTTY )); then

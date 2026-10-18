@@ -60,6 +60,7 @@ After the install, sign in where needed: `gh auth login`, Docker Desktop, VS Cod
 | `Brewfile` | Homebrew dev tools (optional ones are commented out: terraform, kubectl, awscli, postgres, …) | full |
 | `home/.zshrc` | `~/.zshrc` | both |
 | `home/.zprofile` | `~/.zprofile` (Homebrew on PATH) | both |
+| `home/.zshrc.local.example` | `~/.zshrc.local`, only if you say yes and the file does not exist yet | both |
 | `home/.config/starship.toml` | `~/.config/starship.toml` | both |
 | `home/.config/ghostty/config` | `~/.config/ghostty/config` | both |
 | `vscode/settings.json`, `vscode/keybindings.json` | `~/Library/Application Support/Code/User/` | full |
@@ -69,7 +70,8 @@ After the install, sign in where needed: `gh auth login`, Docker Desktop, VS Cod
 ## Shell
 
 - **Fast start** (about 0.2 s): nvm is not loaded at startup. The default Node goes straight onto `PATH`, and `nvm` itself loads the first time you type it (`nvm use 22`, `nvm install --lts`).
-- `PATH` also gets `~/.local/bin` (uv tools, gitb), `~/go/bin` (`go install`) and `~/Library/pnpm` (`pnpm add -g`).
+- `PATH` also gets `~/.local/bin` (uv tools, gitb), `~/go/bin` (`go install`), `~/Library/pnpm` (`pnpm add -g`) and the VS Code `code` command.
+- `~/.zshrc.local` is yours: loaded last, never overwritten. The example adds aliases (`k`, `d`, `dc`) and two Claude Code helpers: `ask <question>` gives a short answer, `how <task>` prints just the shell command and copies it.
 - oh-my-zsh plugins: `git`, `sudo` (Esc Esc), `dirhistory` (Alt+←/→), `aliases` (`als`), `colored-man-pages`, `safe-paste`, `zsh-autosuggestions`, plus `docker` and `golang` when those tools are installed.
 - `ls`/`ll`/`la`/`lt` use eza; `z <dir>` jumps with zoxide.
 

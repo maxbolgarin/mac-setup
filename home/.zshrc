@@ -29,6 +29,10 @@ _path_prepend "$HOME/.local/bin"            # uv tools, gitb, pipx-style install
 _path_prepend "${GOPATH:-$HOME/go}/bin"     # `go install` binaries
 export PNPM_HOME="$HOME/Library/pnpm"       # `pnpm add -g` binaries
 _path_prepend "$PNPM_HOME"
+# VS Code CLI: `code .` opens the current folder (no "Install 'code' command" step needed)
+_vscode_bin="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+[[ -d "$_vscode_bin" ]] && case ":$PATH:" in *":$_vscode_bin:"*) ;; *) export PATH="$PATH:$_vscode_bin" ;; esac
+unset _vscode_bin
 
 # ---- Node (nvm, fast path) ----
 # Sourcing nvm.sh costs ~400ms per shell. Instead, put nvm's default Node on PATH

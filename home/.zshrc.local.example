@@ -1,0 +1,34 @@
+# ~/.zshrc.local — your personal settings on top of the mac-setup ~/.zshrc.
+# Loaded at the end of ~/.zshrc; mac-setup never overwrites this file.
+# Node (nvm), pnpm, Go and the VS Code `code` command are already set up in ~/.zshrc.
+# Keep what you like below, delete the rest.
+
+# ---- Aliases ----
+alias k="kubectl"
+alias d="docker"
+alias dc="docker compose"
+alias gir="gitb"     # typo-tolerant gitb (g='gitb' is in ~/.zshrc)
+alias girb="gitb"
+
+# ---- GitHub token for tools that read GITHUB_TOKEN (for example MCP servers) ----
+# Off by default: every program you start from the shell can then read the token.
+# command -v gh >/dev/null && export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
+
+# ---- Quick LLM helpers (need the signed-in Claude Code CLI: `claude`) ----
+if command -v claude >/dev/null; then
+  # ask: short answer to any question.   e.g.  ask how do tcp keepalives work
+  ask() {
+    claude -p --model haiku "Answer concisely for an experienced developer in a macOS/zsh terminal. Question: $*"
+  }
+  # how: print ONLY the shell command for a task and copy it to the clipboard.
+  #   e.g.  how generate an ed25519 ssh key for github
+  how() {
+    local out
+    out=$(claude -p --model haiku "Output ONLY the shell command(s) to accomplish the following on macOS with zsh. No prose, no explanation, no markdown code fences. Task: $*" \
+          | sed -e 's/^```[a-zA-Z]*$//' -e 's/^```$//' -e '/^[[:space:]]*$/d')
+    print -r -- "$out"
+    if command -v pbcopy >/dev/null; then
+      printf '%s' "$out" | command pbcopy && print -P -- "%F{244}  (copied to clipboard)%f"
+    fi
+  }
+fi
