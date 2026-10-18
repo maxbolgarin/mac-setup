@@ -48,7 +48,7 @@ Or as one file: run `./build.sh`, send `dist/mac-setup.sh` (full) or `dist/mac-s
 bash ~/Downloads/mac-setup.sh
 ```
 
-It is safe to run again: installed things are skipped, and every config file it replaces is saved as `<file>.bak-<date>`. If you already have a `~/.zshrc`, it is saved as `~/.zshrc.bak-<date>` and not loaded again. Copy the lines you still need into `~/.zshrc.local`: the new `.zshrc` loads that file at the end, and the installer never touches it.
+It is safe to run again: installed things are skipped, and every config file it replaces is saved as `<file>.bak-<date>`. If you already have a `~/.zshrc`, it is saved as `~/.zshrc.bak-<date>` and not loaded again: copy the lines you still need into the new `~/.zshrc`. Running the installer again replaces `~/.zshrc` the same way, so keep your own edits in mind (they stay in the backup).
 
 After the install, sign in where needed: `gh auth login`, Docker Desktop, VS Code (GitHub / Settings Sync).
 
@@ -60,7 +60,6 @@ After the install, sign in where needed: `gh auth login`, Docker Desktop, VS Cod
 | `Brewfile` | Homebrew dev tools (optional ones are commented out: terraform, kubectl, awscli, postgres, …) | full |
 | `home/.zshrc` | `~/.zshrc` | both |
 | `home/.zprofile` | `~/.zprofile` (Homebrew on PATH) | both |
-| `home/.zshrc.local.example` | `~/.zshrc.local`, only if you say yes and the file does not exist yet | both |
 | `home/.config/starship.toml` | `~/.config/starship.toml` | both |
 | `home/.config/ghostty/config` | `~/.config/ghostty/config` | both |
 | `vscode/settings.json`, `vscode/keybindings.json` | `~/Library/Application Support/Code/User/` | full |
@@ -71,7 +70,8 @@ After the install, sign in where needed: `gh auth login`, Docker Desktop, VS Cod
 
 - **Fast start** (about 0.2 s): nvm is not loaded at startup. The default Node goes straight onto `PATH`, and `nvm` itself loads the first time you type it (`nvm use 22`, `nvm install --lts`).
 - `PATH` also gets `~/.local/bin` (uv tools, gitb), `~/go/bin` (`go install`), `~/Library/pnpm` (`pnpm add -g`) and the VS Code `code` command.
-- `~/.zshrc.local` is yours: loaded last, never overwritten. The example adds aliases (`k`, `d`, `dc`) and two Claude Code helpers: `ask <question>` gives a short answer, `how <task>` prints just the shell command and copies it.
+- Aliases for installed tools: `g`/`gir`/`girb` = gitb, `k` = kubectl, `d` = docker, `dc` = docker compose.
+- With Claude Code installed (`claude`): `ask <question>` gives a short answer, `how <task>` prints just the shell command and copies it.
 - oh-my-zsh plugins: `git`, `sudo` (Esc Esc), `dirhistory` (Alt+←/→), `aliases` (`als`), `colored-man-pages`, `safe-paste`, `zsh-autosuggestions`, plus `docker` and `golang` when those tools are installed.
 - `ls`/`ll`/`la`/`lt` use eza; `z <dir>` jumps with zoxide.
 

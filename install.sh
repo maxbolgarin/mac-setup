@@ -103,10 +103,6 @@ step "What to install"
 echo "  Terminal"
 ask T_PKGS    "Terminal apps and tools (Ghostty, Starship, fzf, zoxide, bat, eza, fd, …)?" Y
 ask T_SHELL   "Shell setup: oh-my-zsh + this kit's ~/.zshrc and Starship prompt?" Y
-T_LOCAL=0
-if (( T_SHELL )) && [[ ! -e "$HOME/.zshrc.local" ]]; then
-  ask T_LOCAL "Also create ~/.zshrc.local from the example (aliases, ask/how helpers)?" Y
-fi
 ask T_GHOSTTY "Ghostty config (dark theme, keys, SSH colors)?" Y
 ask T_GITB    "gitb (short git commands)?" Y
 D_TOOLS=0; D_NODE=0; D_CODE=0; D_CODE_SET=0; D_CODE_EXT=0; D_CODE_OPT=0; D_DOCKER=0
@@ -172,7 +168,7 @@ if (( T_SHELL )); then
 
   step "Shell config"
   # An existing ~/.zshrc is saved before it is replaced. It is not loaded again:
-  # copy the lines you still want into ~/.zshrc.local (the new .zshrc loads that file).
+  # copy the lines you still want from the backup into the new ~/.zshrc.
   if [[ -f "$HOME/.zshrc" ]] && ! cmp -s "$KIT/home/.zshrc" "$HOME/.zshrc"; then
     ZSHRC_BACKUP="$HOME/.zshrc.bak-$STAMP"
     echo "    found an existing ~/.zshrc"
@@ -180,15 +176,6 @@ if (( T_SHELL )); then
   put home/.zshrc                "$HOME/.zshrc"
   put home/.zprofile             "$HOME/.zprofile"
   put home/.config/starship.toml "$HOME/.config/starship.toml"
-  if (( T_LOCAL )); then
-    # Only when the file does not exist yet: ~/.zshrc.local is yours and never overwritten.
-    if [[ -e "$HOME/.zshrc.local" ]]; then
-      echo "    ~/.zshrc.local exists, left as it is"
-    else
-      run cp "$KIT/home/.zshrc.local.example" "$HOME/.zshrc.local"
-      echo "    wrote: $HOME/.zshrc.local (from .zshrc.local.example; edit it freely)"
-    fi
-  fi
 fi
 
 if (( T_GHOSTTY )); then
@@ -282,5 +269,5 @@ if (( D_TOOLS )); then echo "    GitHub CLI: gh auth login"; fi
 if (( D_DOCKER )); then echo "    Docker Desktop: open it once to finish its setup."; fi
 if [[ -n "$ZSHRC_BACKUP" ]]; then
   echo "    Your old .zshrc is saved as $ZSHRC_BACKUP"
-  echo "    Copy the lines you still need (aliases, PATH, exports) into ~/.zshrc.local"
+  echo "    Copy the lines you still need (aliases, PATH, exports) into the new ~/.zshrc"
 fi

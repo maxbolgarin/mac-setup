@@ -1,5 +1,5 @@
 # ~/.zshrc from mac-setup: oh-my-zsh + Starship prompt + modern CLI tools + Node, Go, pnpm PATH setup.
-# Put your own aliases and settings in ~/.zshrc.local (loaded at the end, never overwritten).
+# Edit freely. Running mac-setup again replaces this file (the old one is kept as ~/.zshrc.bak-<date>).
 
 # ---- oh-my-zsh ----
 export ZSH="$HOME/.oh-my-zsh"
@@ -80,7 +80,18 @@ command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 command -v bat >/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # gitb (gitbasher): short git commands, `gitb` lists them
-command -v gitb >/dev/null && alias g='gitb'
+if command -v gitb >/dev/null; then
+  alias g='gitb'
+  alias gir='gitb'     # typo-tolerant
+  alias girb='gitb'
+fi
+
+# Short names for tools that are installed
+command -v kubectl >/dev/null && alias k='kubectl'
+if command -v docker >/dev/null; then
+  alias d='docker'
+  alias dc='docker compose'
+fi
 
 # eza: ls with colors and git status
 if command -v eza >/dev/null; then
@@ -108,5 +119,25 @@ zle -N zle-line-finish _transient_line_finish
 _transient_restore() { PROMPT=$_TRANSIENT_FULL_PROMPT; }
 precmd_functions=(_transient_restore $precmd_functions)
 
-# ---- Your own settings ----
-[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+# ---- Quick LLM helpers (only when the signed-in Claude Code CLI `claude` exists) ----
+if command -v claude >/dev/null; then
+  # ask: short answer to any question.   e.g.  ask how do tcp keepalives work
+  ask() {
+    claude -p --model haiku "Answer concisely for an experienced developer in a macOS/zsh terminal. Question: $*"
+  }
+  # how: print ONLY the shell command for a task and copy it to the clipboard.
+  #   e.g.  how generate an ed25519 ssh key for github
+  how() {
+    local out
+    out=$(claude -p --model haiku "Output ONLY the shell command(s) to accomplish the following on macOS with zsh. No prose, no explanation, no markdown code fences. Task: $*" \
+          | sed -e 's/^```[a-zA-Z]*$//' -e 's/^```$//' -e '/^[[:space:]]*$/d')
+    print -r -- "$out"
+    if command -v pbcopy >/dev/null; then
+      printf '%s' "$out" | command pbcopy && print -P -- "%F{244}  (copied to clipboard)%f"
+    fi
+  }
+fi
+
+# ---- GitHub token for tools that read GITHUB_TOKEN (for example MCP servers) ----
+# Off by default: every program you start from the shell can then read the token.
+# command -v gh >/dev/null && export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
