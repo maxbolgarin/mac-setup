@@ -1,4 +1,5 @@
-# Dev tools and apps, on top of Brewfile.terminal. Installed by ./install.sh (not --terminal).
+# Dev tools, on top of Brewfile.terminal. ./install.sh asks before installing them.
+# VS Code and Docker Desktop are separate questions in the installer.
 # Node itself comes from nvm (see install.sh), so `nvm use <version>` works per project.
 
 # Git
@@ -13,10 +14,6 @@ brew "pnpm"
 brew "uv"               # Python: projects, tools, Python versions
 brew "just"             # command runner (justfile)
 brew "httpie"           # http GET example.com
-
-# Apps
-cask "visual-studio-code"
-cask "docker-desktop"
 
 # Optional: uncomment what you use
 # brew "terraform"      # needs: tap "hashicorp/tap", then brew "hashicorp/tap/terraform"

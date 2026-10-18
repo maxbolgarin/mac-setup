@@ -1,0 +1,10 @@
+# Optional VS Code extensions: the installer asks before installing these.
+# One id per line; # starts a comment.
+hashicorp.terraform                 # Terraform
+redhat.ansible                      # Ansible playbooks
+astro-build.astro-vscode            # Astro
+matthewpi.caddyfile-support         # Caddyfile
+jinliming2.vscode-go-template       # Go templates (*.tmpl)
+ms-vscode.makefile-tools            # Makefiles
+tomoki1207.pdf                      # open PDFs in VS Code
+ibm.output-colorizer                # colors in the Output panel

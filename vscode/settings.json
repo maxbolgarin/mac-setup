@@ -1,108 +1,257 @@
 {
-  // ---- Editor ----
+  "window.titleBarStyle": "custom",
+  "editor.rulers": [
+    100,
+    120
+  ],
+  "go.useLanguageServer": true,
+  "go.lintTool": "golangci-lint-v2",
+  "go.lintFlags": [
+    "--fast-only"
+  ],
+  "explorer.confirmDelete": false,
+  "files.autoSave": "onFocusChange",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.ipynb": "jupyter-notebook",
+    "*.md": "vscode.markdown.editor"
+  },
+  "terminal.integrated.inheritEnv": false,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
   "editor.fontSize": 13,
-  "editor.rulers": [100, 120],
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "go.testTimeout": "45s",
+  "yaml.validate": true,
+  "go.toolsManagement.autoUpdate": true,
+  "gopls": {
+    "ui.semanticTokens": true
+  },
+  "go.liveErrors": {
+    "enabled": true
+  },
+  "go.editorContextMenuCommands": {
+    "toggleTestFile": false,
+    "fillStruct": true,
+    "addImport": false,
+    "testCoverage": false,
+    "playground": false,
+    "benchmarkAtCursor": true
+  },
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "diffEditor.renderGutterMenu": false,
+  "redhat.telemetry.enabled": false,
+  "workbench.colorTheme": "Dark Modern",
   "editor.minimap.enabled": true,
+  "git.confirmSync": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmPasteNative": false,
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "editor.inlineSuggest.syntaxHighlightingEnabled": true,
+  "diffEditor.maxComputationTime": 0,
+  "editor.accessibilitySupport": "off",
+  "claudeCode.useTerminal": true,
+  "claudeCode.preferredLocation": "panel",
+  "window.autoDetectColorScheme": false,
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml"
+  ],
+  "terminal.integrated.allowedLinkSchemes": [
+    "file",
+    "http",
+    "https",
+    "mailto",
+    "vscode",
+    "vscode-insiders",
+    "docker-desktop"
+  ],
+  "claudeCode.hideOnboarding": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
     "source.fixAll.eslint": "explicit"
   },
-  "editor.quickSuggestions": { "strings": "on" },
-  "editor.inlineSuggest.syntaxHighlightingEnabled": true,
-  "editor.stickyScroll.enabled": true,
-  "editor.unicodeHighlight.ambiguousCharacters": false,
-  "editor.accessibilitySupport": "off",
-  "workbench.colorTheme": "Dark Modern",
-  "window.autoDetectColorScheme": false,
-
-  // ---- Files ----
-  "files.autoSave": "onFocusChange",
   "files.eol": "\n",
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  "files.exclude": { "**/node_modules": true, "**/.turbo": true },
+  "git.autofetch": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.turbo": true
+  },
   "search.exclude": {
     "**/node_modules": true,
     "**/.turbo": true,
     "**/dist": true,
-    "**/.next": true,
-    "**/.astro": true
+    "**/.astro": true,
+    "**/.next": true
   },
-  "explorer.confirmDelete": false,
-  "explorer.confirmDragAndDrop": false,
-  "explorer.confirmPasteNative": false,
+  "git.blame.editorDecoration.enabled": true,
+  "editor.stickyScroll.enabled": true,
   "[markdown]": {
     "editor.formatOnSave": false,
     "files.trimTrailingWhitespace": false
   },
-
-  // ---- Git ----
-  "git.autofetch": true,
-  "git.confirmSync": false,
-  "git.blame.editorDecoration.enabled": true,
-  "diffEditor.renderGutterMenu": false,
-  "diffEditor.maxComputationTime": 0,
-
-  // ---- Terminal ----
-  "terminal.integrated.defaultProfile.osx": "zsh",
-  "terminal.integrated.fontSize": 14,
-
-  // ---- Formatters ----
-  "[go]": { "editor.defaultFormatter": "golang.go" },
-  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[javascriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[python]": { "editor.defaultFormatter": "charliermarsh.ruff" },
   "[dockercompose]": {
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
-  "[github-actions-workflow]": { "editor.defaultFormatter": "redhat.vscode-yaml" },
-
-  // ---- Languages ----
-  "go.useLanguageServer": true,
-  "go.lintTool": "golangci-lint-v2",
-  "go.lintFlags": ["--fast-only"],
-  "go.testTimeout": "45s",
-  "go.toolsManagement.autoUpdate": true,
-  "gopls": { "ui.semanticTokens": true },
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "yaml.validate": true,
-  "redhat.telemetry.enabled": false,
-
-  // ---- Quiet: no editor sounds ----
-  "accessibility.signals.lineHasError": { "sound": "off" },
-  "accessibility.signals.lineHasWarning": { "sound": "off" },
-  "accessibility.signals.lineHasBreakpoint": { "sound": "off" },
-  "accessibility.signals.lineHasFoldedArea": { "sound": "off" },
-  "accessibility.signals.lineHasInlineSuggestion": { "sound": "off" },
-  "accessibility.signals.positionHasError": { "sound": "off" },
-  "accessibility.signals.positionHasWarning": { "sound": "off" },
-  "accessibility.signals.onDebugBreak": { "sound": "off" },
-  "accessibility.signals.noInlayHints": { "sound": "off" },
-  "accessibility.signals.taskCompleted": { "sound": "off" },
-  "accessibility.signals.taskFailed": { "sound": "off" },
-  "accessibility.signals.terminalBell": { "sound": "off" },
-  "accessibility.signals.terminalCommandFailed": { "sound": "off" },
-  "accessibility.signals.terminalCommandSucceeded": { "sound": "off" },
-  "accessibility.signals.terminalQuickFix": { "sound": "off" },
-  "accessibility.signals.notebookCellCompleted": { "sound": "off" },
-  "accessibility.signals.notebookCellFailed": { "sound": "off" },
-  "accessibility.signals.diffLineInserted": { "sound": "off" },
-  "accessibility.signals.diffLineDeleted": { "sound": "off" },
-  "accessibility.signals.diffLineModified": { "sound": "off" },
-  "accessibility.signals.chatRequestSent": { "sound": "off" },
-  "accessibility.signals.chatResponseReceived": { "sound": "off" },
-  "accessibility.signals.chatEditModifiedFile": { "sound": "off" },
-  "accessibility.signals.codeActionApplied": { "sound": "off" },
-  "accessibility.signals.codeActionTriggered": { "sound": "off" },
-  "accessibility.signals.clear": { "sound": "off" },
-  "accessibility.signals.progress": { "sound": "off" }
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "accessibility.signals.lineHasBreakpoint": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.chatEditModifiedFile": {
+    "sound": "off"
+  },
+  "accessibility.signals.chatRequestSent": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.chatResponseReceived": {
+    "sound": "off"
+  },
+  "accessibility.signals.clear": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.codeActionApplied": {
+    "sound": "off"
+  },
+  "accessibility.signals.codeActionTriggered": {
+    "sound": "off"
+  },
+  "accessibility.signals.onDebugBreak": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.diffLineDeleted": {
+    "sound": "off"
+  },
+  "accessibility.signals.diffLineInserted": {
+    "sound": "off"
+  },
+  "accessibility.signals.diffLineModified": {
+    "sound": "off"
+  },
+  "accessibility.signals.editsKept": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.positionHasError": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.lineHasError": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.lineHasFoldedArea": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.lineHasInlineSuggestion": {
+    "sound": "off"
+  },
+  "accessibility.signals.noInlayHints": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.notebookCellCompleted": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.notebookCellFailed": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.progress": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.taskCompleted": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.taskFailed": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.terminalBell": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.terminalCommandFailed": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.terminalCommandSucceeded": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.terminalQuickFix": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.editsUndone": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.voiceRecordingStarted": {
+    "sound": "off"
+  },
+  "accessibility.signals.voiceRecordingStopped": {
+    "sound": "off"
+  },
+  "accessibility.signals.positionHasWarning": {
+    "sound": "off",
+    "announcement": "auto"
+  },
+  "accessibility.signals.lineHasWarning": {
+    "sound": "off",
+    "announcement": "auto"
+  }
 }
