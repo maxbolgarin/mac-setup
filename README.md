@@ -5,7 +5,8 @@ One command to set up a nice terminal on a Mac:
 - **Ghostty**: fast, native terminal app
 - **zsh + oh-my-zsh + zsh-autosuggestions**: grey suggestions from your history
 - **Starship** prompt: full path, rich git status, command time and exit code; old prompts shrink to `❯ cmd`
-- **fzf** (Ctrl-R history search, Ctrl-T file picker), **zoxide** (`z <dir>`), **bat**, **eza**, **fd**, **tree**, **htop**, **jq**
+- **gitb** ([gitbasher](https://github.com/maxbolgarin/gitbasher)): short git commands, alias `g`
+- **fzf** (Ctrl-R history search, Ctrl-T file picker), **zoxide** (`z <dir>`), **bat** (also colors man pages), **eza**, **fd**, **tree**, **htop**, **jq**
 
 ## Install
 
@@ -21,7 +22,7 @@ bash ~/Downloads/mac-setup.sh
 
 Add `--dry-run` to only print the steps.
 
-It is safe to run again: installed things are skipped, and every config file it replaces is saved as `<file>.bak-<date>`. An existing `~/.zshrc` is kept as `~/.zshrc.local`, which the new `.zshrc` loads at the end. Put your own aliases there.
+It is safe to run again: installed things are skipped, and every config file it replaces is saved as `<file>.bak-<date>`. If you already have a `~/.zshrc`, it is saved as `~/.zshrc.bak-<date>` and not loaded again. Copy the lines you still need into `~/.zshrc.local`: the new `.zshrc` loads that file at the end, and the installer never touches it.
 
 ## What goes where
 
