@@ -1,4 +1,4 @@
-# ~/.zshrc from mac-setup: oh-my-zsh + Starship prompt + a few modern CLI tools.
+# ~/.zshrc from mac-setup: oh-my-zsh + Starship prompt + modern CLI tools + Node, Go, pnpm PATH setup.
 # Put your own aliases and settings in ~/.zshrc.local (loaded at the end, never overwritten).
 
 # ---- oh-my-zsh ----
@@ -17,11 +17,39 @@ plugins=(
     safe-paste
     zsh-autosuggestions  # grey suggestion from history; Right arrow accepts it
 )
+# Aliases and completions for tools that are installed
+command -v docker >/dev/null && plugins+=(docker)   # e.g. dps, dcup
+command -v go >/dev/null && plugins+=(golang)       # e.g. gob, got
 
 source $ZSH/oh-my-zsh.sh
 
 # ---- PATH ----
-case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
+_path_prepend() { case ":$PATH:" in *":$1:"*) ;; *) [[ -d "$1" ]] && export PATH="$1:$PATH" ;; esac; }
+_path_prepend "$HOME/.local/bin"            # uv tools, gitb, pipx-style installs
+_path_prepend "${GOPATH:-$HOME/go}/bin"     # `go install` binaries
+export PNPM_HOME="$HOME/Library/pnpm"       # `pnpm add -g` binaries
+_path_prepend "$PNPM_HOME"
+
+# ---- Node (nvm, fast path) ----
+# Sourcing nvm.sh costs ~400ms per shell. Instead, put nvm's default Node on PATH
+# directly (alias "24" -> newest installed v24.x; no default -> newest installed),
+# so `node`, `npm`, `npx` and `#!/usr/bin/env node` scripts work from the first command.
+# nvm itself loads on first use: `nvm use 22`, `nvm install --lts`, ...
+export NVM_DIR="$HOME/.nvm"
+if [[ -d "$NVM_DIR/versions/node" ]]; then
+  _nvm_default=""
+  [[ -r "$NVM_DIR/alias/default" ]] && _nvm_default=$(<"$NVM_DIR/alias/default")
+  _nvm_default=${_nvm_default#v}
+  [[ $_nvm_default =~ '^[0-9]+(\.[0-9]+)*$' ]] || _nvm_default=""   # only "24", "24.1", "24.1.0"
+  _nvm_bins=( "$NVM_DIR"/versions/node/v${_nvm_default}*/bin(N/n) )
+  (( ${#_nvm_bins} )) && _path_prepend "${_nvm_bins[-1]}"
+  unset _nvm_default _nvm_bins
+fi
+nvm() {
+  unset -f nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  nvm "$@"
+}
 
 # ---- Completion ----
 zstyle ':completion:*' menu select

@@ -1,0 +1,11 @@
+// Mac-style navigation: Cmd+[ / Cmd+] go back / forward, Cmd+F1 goes to implementation.
+// Shift+Enter in the terminal inserts a new line (useful for multi-line prompts in CLI tools).
+[
+  { "key": "cmd+[", "command": "workbench.action.navigateBack", "when": "canNavigateBack" },
+  { "key": "ctrl+-", "command": "-workbench.action.navigateBack", "when": "canNavigateBack" },
+  { "key": "cmd+]", "command": "workbench.action.navigateForward", "when": "canNavigateForward" },
+  { "key": "ctrl+shift+-", "command": "-workbench.action.navigateForward", "when": "canNavigateForward" },
+  { "key": "cmd+f1", "command": "editor.action.goToImplementation", "when": "editorHasImplementationProvider && editorTextFocus" },
+  { "key": "cmd+f12", "command": "-editor.action.goToImplementation", "when": "editorHasImplementationProvider && editorTextFocus" },
+  { "key": "shift+enter", "command": "workbench.action.terminal.sendSequence", "args": { "text": "\\\r\n" }, "when": "terminalFocus" }
+]

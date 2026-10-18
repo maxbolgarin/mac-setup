@@ -1,0 +1,23 @@
+# VS Code extensions installed by ./install.sh. One id per line; # starts a comment.
+
+# Languages
+golang.go
+ms-python.python                    # also installs Pylance and the Python debugger
+charliermarsh.ruff                  # Python lint + format
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+
+# Config files
+redhat.vscode-yaml
+tamasfe.even-better-toml
+mikestead.dotenv
+nefrob.vscode-just-syntax
+
+# Tools
+ms-azuretools.vscode-containers     # Docker / compose
+github.vscode-github-actions
+ms-vscode-remote.remote-ssh
+usernamehw.errorlens                # errors shown on the line
+mechatroner.rainbow-csv
+shd101wyy.markdown-preview-enhanced # Markdown preview with a table of contents
+anthropic.claude-code

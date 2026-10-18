@@ -1,12 +1,22 @@
 # mac-setup
 
-One command to set up a nice terminal on a Mac:
+One command to set up a Mac for development.
 
+**Terminal** (always installed):
 - **Ghostty**: fast, native terminal app (high-contrast dark theme; reports `xterm-256color`, so prompts on SSH servers keep their colors)
 - **zsh + oh-my-zsh + zsh-autosuggestions**: grey suggestions from your history
 - **Starship** prompt: full path, rich git status, command time and exit code; old prompts shrink to `❯ cmd`
 - **gitb** ([gitbasher](https://github.com/maxbolgarin/gitbasher)): short git commands, alias `g`
 - **fzf** (Ctrl-R history search, Ctrl-T file picker), **zoxide** (`z <dir>`), **bat** (also colors man pages), **eza**, **fd**, **tree**, **htop**, **jq**
+
+**Dev** (the full kit, skipped with `--terminal`):
+- **Git**: `git`, `gh` (GitHub CLI), `shellcheck`
+- **Go** + `golangci-lint`
+- **Node** via **nvm** (latest LTS as default) + **pnpm**
+- **Python** via **uv** (projects, tools and Python versions)
+- **just** (command runner), **httpie**
+- **VS Code** with settings, keybindings and extensions (Go, Python + Ruff, ESLint, Prettier, YAML, TOML, Docker, GitHub Actions, Remote SSH, Error Lens, …)
+- **Docker Desktop**
 
 ## Install
 
@@ -14,7 +24,13 @@ One command to set up a nice terminal on a Mac:
 git clone https://github.com/maxbolgarin/mac-setup.git && cd mac-setup && ./install.sh
 ```
 
-Or as one file: run `./build.sh`, send `dist/mac-setup.sh` to the other Mac, then:
+Terminal only:
+
+```bash
+./install.sh --terminal
+```
+
+Or as one file: run `./build.sh`, send `dist/mac-setup.sh` (full) or `dist/mac-setup-terminal.sh` to the other Mac, then:
 
 ```bash
 bash ~/Downloads/mac-setup.sh
@@ -24,15 +40,27 @@ Add `--dry-run` to only print the steps.
 
 It is safe to run again: installed things are skipped, and every config file it replaces is saved as `<file>.bak-<date>`. If you already have a `~/.zshrc`, it is saved as `~/.zshrc.bak-<date>` and not loaded again. Copy the lines you still need into `~/.zshrc.local`: the new `.zshrc` loads that file at the end, and the installer never touches it.
 
+After the install, sign in where needed: `gh auth login`, Docker Desktop, VS Code (GitHub / Settings Sync).
+
 ## What goes where
 
-| File in the repo | Installed to |
-|---|---|
-| `Brewfile` | Homebrew packages |
-| `home/.zshrc` | `~/.zshrc` |
-| `home/.zprofile` | `~/.zprofile` (Homebrew on PATH) |
-| `home/.config/starship.toml` | `~/.config/starship.toml` |
-| `home/.config/ghostty/config` | `~/.config/ghostty/config` |
+| File in the repo | Installed to | Kit |
+|---|---|---|
+| `Brewfile.terminal` | Homebrew packages | both |
+| `Brewfile` | Homebrew packages (optional ones are commented out: terraform, kubectl, awscli, postgres, …) | full |
+| `home/.zshrc` | `~/.zshrc` | both |
+| `home/.zprofile` | `~/.zprofile` (Homebrew on PATH) | both |
+| `home/.config/starship.toml` | `~/.config/starship.toml` | both |
+| `home/.config/ghostty/config` | `~/.config/ghostty/config` | both |
+| `vscode/settings.json`, `vscode/keybindings.json` | `~/Library/Application Support/Code/User/` | full |
+| `vscode/extensions.txt` | VS Code extensions | full |
+
+## Shell
+
+- **Fast start** (about 0.2 s): nvm is not loaded at startup. The default Node goes straight onto `PATH`, and `nvm` itself loads the first time you type it (`nvm use 22`, `nvm install --lts`).
+- `PATH` also gets `~/.local/bin` (uv tools, gitb), `~/go/bin` (`go install`) and `~/Library/pnpm` (`pnpm add -g`).
+- oh-my-zsh plugins: `git`, `sudo` (Esc Esc), `dirhistory` (Alt+←/→), `aliases` (`als`), `colored-man-pages`, `safe-paste`, `zsh-autosuggestions`, plus `docker` and `golang` when those tools are installed.
+- `ls`/`ll`/`la`/`lt` use eza; `z <dir>` jumps with zoxide.
 
 ## Prompt
 
